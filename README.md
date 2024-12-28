@@ -63,4 +63,10 @@ This is an API for managing a Blog Project, built with **Express**, **TypeScript
    ```
 
    The app will start on **http://localhost:5000**.
+   
+## Live Server
+
+You can view the live version of the project here:
+
+[Live Server](https://a3-l2-blog-backend.vercel.app/)
 
