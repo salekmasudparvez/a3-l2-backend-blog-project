@@ -21,12 +21,7 @@ This is an API for managing a Blog Project, built with **Express**, **TypeScript
   - Admin can't update any post .
 
 
-## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Error Handling](#error-handling)
 
 ## Installation
 
