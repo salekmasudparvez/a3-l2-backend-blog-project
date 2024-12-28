@@ -28,7 +28,8 @@ const loginUserFunc = async (payload:ILogin) => {
       role: isExitEmail.role,
       isBlocked: isExitEmail.isBlocked
    }
-   const jwtSecret = config.jwt_secret || 'jwt_secret'
+   const jwtSecret = config.jwt_secret || 'jwt_secret';
+   
    const token = jwt.sign(userData, jwtSecret, {expiresIn: '1d'})
    return {token}
 }

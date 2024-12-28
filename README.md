@@ -6,7 +6,7 @@ This is an API for managing a Blog Project, built with **Express**, **TypeScript
 
 ## Features
 
-- **User Management **:
+- **User Management**:
 
   - User can register and login.
   - User can create blog post.

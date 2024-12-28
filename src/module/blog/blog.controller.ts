@@ -53,7 +53,7 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
             statusCode: StatusCodes.UNAUTHORIZED,
         })
     }
-    const decodeToken = jwt.verify(getToken, config.jwt_secret as string) as JwtPayload
+    const decodeToken = jwt.verify(getToken, config.jwt_secret as string) as JwtPayload;
     const requiredEmail = decodeToken.email;
     const findBlog = await blogService.getSingleBlogFunc(id);
     if (!findBlog) {
