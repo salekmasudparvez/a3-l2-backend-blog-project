@@ -53,7 +53,7 @@ This is an API for managing a Blog Project, built with **Express**, **TypeScript
 4. Set up your **MongoDB** connection in the `app.ts` file (or use a service like MongoDB Atlas):
 
    ```typescript
-   mongoose.connect('mongodb://localhost:5000/api/blogs')
+   mongoose.connect('mongodb://localhost:27017/api/blogs')
    ```
 
 5. Run the application:
@@ -63,7 +63,7 @@ This is an API for managing a Blog Project, built with **Express**, **TypeScript
    ```
 
    The app will start on **http://localhost:5000**.
-   
+
 ## Live Server
 
 You can view the live version of the project here:
