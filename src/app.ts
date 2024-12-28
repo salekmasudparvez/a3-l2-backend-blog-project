@@ -8,7 +8,7 @@ import adminRouter from './module/admin/admin.route';
 const app = express()
 
 app.use(express.json())
-app.use(cors({ origin: ['http://localhost:5000'] }))
+app.use(cors({ origin: ['http://localhost:5000','https://a3-l2-blog-backend.vercel.app'] }))
 
 app.use('/api/blogs', useblogRouter)
 app.use('/api/auth', authRouter)

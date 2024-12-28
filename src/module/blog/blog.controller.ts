@@ -142,7 +142,7 @@ const getAllBlogs = catchAsync(async (req: Request, res: Response) => {
         throw new Error('Invalid sortBy field');
     }
     if (filter) {
-        queryDoc['author.authorId'] = filter; // Filter by nested author ID
+        queryDoc['author.authorId'] = filter; 
       }
     const result = await blogService.getAllBlogsFunc(queryDoc, sortOptions);
     if (result.length === 0) {
