@@ -1,6 +1,6 @@
 ---
 
-# Blog API
+# Blogs Project API
 
 This is an API for managing a Blog Project, built with **Express**, **TypeScript**, and **MongoDB** using **Mongoose**. The API allows user to manage the blog,create the blog and delete his blog . Beside there will be a admin who can block a user and delete blog post of any user.
 
