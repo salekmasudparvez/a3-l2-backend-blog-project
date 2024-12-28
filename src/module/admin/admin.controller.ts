@@ -4,9 +4,10 @@ import sendResponse from "../../utilittes/sendResponse";
 import { StatusCodes } from "http-status-codes";
 import User from "../auth/auth.model";
 import BlogPostModel from "../blog/blog.model";
+import catchAsync from "../../utilittes/catchAsync";
 
 
-const userBlock = async (req: Request, res: Response) => {
+const userBlock = catchAsync(async (req: Request, res: Response) => {
     const getid = req.params.userId
     const getUser = await User.findById(getid);
     if (!getUser) {
@@ -17,20 +18,20 @@ const userBlock = async (req: Request, res: Response) => {
         })
     }
     const result = await adminService.userBlockFunc(getid);
-   if(!result){ 
-    return sendResponse(res, {
-        success: false,
-        message: 'Failed to block user',
-        statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-    })
-   }
+    if (!result) {
+        return sendResponse(res, {
+            success: false,
+            message: 'Failed to block user',
+            statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+        })
+    }
     sendResponse(res, {
         success: true,
         message: 'User blocked successfully',
         statusCode: StatusCodes.OK,
     })
-}
-const deleteBlog = async (req: Request, res: Response) => {
+})
+const deleteBlog = catchAsync(async (req: Request, res: Response) => {
     const getid = req.params.id
     const findBlog = await BlogPostModel.findById(getid)
     if (!findBlog) {
@@ -48,14 +49,14 @@ const deleteBlog = async (req: Request, res: Response) => {
             statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
         })
     }
-   
+
     sendResponse(res, {
         success: true,
         message: 'Blog deleted successfully',
         statusCode: StatusCodes.OK,
     })
 }
-
+)
 export const adminController = {
     userBlock,
     deleteBlog
