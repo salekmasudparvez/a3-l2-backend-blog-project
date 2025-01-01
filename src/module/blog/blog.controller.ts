@@ -9,15 +9,19 @@ import config from '../../config';
 
 const creatBlog = catchAsync(async (req: Request, res: Response) => {
     const getData = req.body;
-    const getToken = req.header('Authorization');
-    if (!getToken) {
+
+    const token = req.header('Authorization');
+    if (!token) {
         return sendResponse(res, {
             success: false,
             message: 'Token not found',
             statusCode: StatusCodes.UNAUTHORIZED,
         })
     }
-    const decodeToken = jwt.verify(getToken, config.jwt_secret as string) as JwtPayload
+    const getToken = token.split(" ")[1];
+  
+    const decodeToken = jwt.verify(getToken, config.jwt_secret as string) as JwtPayload;
+
 
     const payload = {
         ...getData,
@@ -45,14 +49,15 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
     const updateBlog = {
         ...getData
     }
-    const getToken = req.header('Authorization');
-    if (!getToken) {
+    const token = req.header('Authorization');
+    if (!token) {
         return sendResponse(res, {
             success: false,
             message: 'Token not found',
             statusCode: StatusCodes.UNAUTHORIZED,
         })
     }
+    const getToken = token.split(" ")[1];
     const decodeToken = jwt.verify(getToken, config.jwt_secret as string) as JwtPayload;
     const requiredEmail = decodeToken.email;
     const findBlog = await blogService.getSingleBlogFunc(id);
@@ -81,14 +86,15 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
 const deleteBlog = catchAsync(async (req: Request, res: Response) => {
     const getId = req.params;
     const id = getId.id
-    const getToken = req.header('Authorization');
-    if (!getToken) {
+    const token = req.header('Authorization');
+    if (!token) {
         return sendResponse(res, {
             success: false,
             message: 'Token not found',
             statusCode: StatusCodes.UNAUTHORIZED,
         })
     }
+    const getToken = token.split(" ")[1];
     const decodeToken = jwt.verify(getToken, config.jwt_secret as string) as JwtPayload;
     const requiredEmail = decodeToken.email;
     const findBlog = await blogService.getSingleBlogFunc(id);
@@ -124,7 +130,7 @@ const getAllBlogs = catchAsync(async (req: Request, res: Response) => {
 
     const { search, sortBy = 'createdAt', sortOrder = 'desc', filter } = req.query;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let queryDoc : any = {};
+    let queryDoc: any = {};
     if (search) {
         queryDoc = {
             $or: [
@@ -133,17 +139,17 @@ const getAllBlogs = catchAsync(async (req: Request, res: Response) => {
             ]
         }
     }
-    const validSortFields = ['createdAt', 'updatedAt', 'title','content',];
+    const validSortFields = ['createdAt', 'updatedAt', 'title', 'content',];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sortOptions: any = {};
     if (validSortFields.includes(sortBy as string)) {
-        sortOptions[sortBy as string] = sortOrder === 'asc' ? 1 : -1; 
+        sortOptions[sortBy as string] = sortOrder === 'asc' ? 1 : -1;
     } else {
         throw new Error('Invalid sortBy field');
     }
     if (filter) {
-        queryDoc['author.authorId'] = filter; 
-      }
+        queryDoc['author.authorId'] = filter;
+    }
     const result = await blogService.getAllBlogsFunc(queryDoc, sortOptions);
     if (result.length === 0) {
         return sendResponse(res, {

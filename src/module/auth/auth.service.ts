@@ -30,7 +30,10 @@ const loginUserFunc = async (payload:ILogin) => {
    }
    const jwtSecret = config.jwt_secret || 'jwt_secret';
    
-   const token = jwt.sign(userData, jwtSecret, {expiresIn: '1d'})
+   const getToken = jwt.sign(userData, jwtSecret, {expiresIn: '1d'})
+
+   const token = `Bearer ${getToken}`;
+
    return {token}
 }
 
