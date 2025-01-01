@@ -17,6 +17,13 @@ const userBlock = catchAsync(async (req: Request, res: Response) => {
             statusCode: StatusCodes.NOT_FOUND,
         })
     }
+    if(getUser?.isBlocked===true){
+        return  sendResponse(res, {
+            success: false,
+            message: 'User already blocked',
+            statusCode: StatusCodes.CONFLICT,
+        })
+    }
     const result = await adminService.userBlockFunc(getid);
     if (!result) {
         return sendResponse(res, {
