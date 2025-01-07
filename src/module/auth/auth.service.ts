@@ -32,7 +32,7 @@ const loginUserFunc = async (payload:ILogin) => {
    
    const getToken = jwt.sign(userData, jwtSecret, {expiresIn: '1d'})
 
-   const token = `Bearer ${getToken}`;
+   const token = getToken;
 
    return {token}
 }
